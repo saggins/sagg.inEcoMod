@@ -1,0 +1,12 @@
+name: ECO-MOD
+main: goodEconomy.GoodEconomy
+version: 1.0
+depend: [Vault]
+depend: [Ultimate_Economy ]
+commands:
+   buyselleco:
+      description: fsd
+      usage: /eco
+   buyz:
+      description: sdfsd
+      usage: /buy
