@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!-- Configuration of the Ant build system to generate a Jar file -->
+<project name="ECO-MOD" default="CreateJar"  basedir=".">
+  <target name="CreateJar" description="Create Jar file">
+    <mkdir dir="target"></mkdir>
+    <jar destfile="./server/plugins/economy.jar">
+        <fileset dir="target/classes/"></fileset>
+    	<fileset file="plugin.yml"></fileset>
+	    <fileset file="config.yml"></fileset>
+    </jar>
+  </target>
+</project>

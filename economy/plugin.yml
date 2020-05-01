@@ -1,12 +1,29 @@
-name: ECO-MOD
+name: SaggEco
 main: goodEconomy.GoodEconomy
 version: 1.0
 depend: [Vault]
 depend: [Ultimate_Economy ]
+depend: [MySQL]
 commands:
-   buyselleco:
-      description: fsd
+   SaggEco:
+      description: TODO Sagg.in Economy Mod. Github.com/saggins/...
       usage: /eco
-   buyz:
-      description: sdfsd
-      usage: /buy
+   table:
+      description: Show item command
+      usage: /table item
+   sell:
+      description: Sell command
+      usage: /sell item (ammount)
+   buy: 
+      description: buy command
+      usage: /buy item (ammount)
+permissions:
+   saggeco.table:
+       description: /table command, Used for telling what the current price of an item is
+       default: false
+   saggeco.buy:
+       description: /buy command, Used for buying items at the current price of an item is
+       default: false
+   saggeco.sell:
+       description: /sell command, Used for selling items att the current price of an item is
+       default: false

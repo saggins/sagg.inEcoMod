@@ -1,77 +1,73 @@
 package goodEconomy.database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.bukkit.Bukkit;
-
 import goodEconomy.GoodEconomy;
+import me.vagdedes.mysql.database.MySQL;
 
 public class Database {
 	private static GoodEconomy ins;
 	
-	private Connection connection;
-	private PreparedStatement stmt = null;
-    private String host, database, username, password;
-    private int port;
-    
-    private String tablename;
+	private static Connection connection;    
+    private static String tablename;
 	
 	public void init() {
 		ins = GoodEconomy.getInstance();
-		tablename = "sagginecon";
-		
-		host = ins.getConfig().getString("DB-HOST");
-		database = ins.getConfig().getString("DB-NAME");
-		username = ins.getConfig().getString("DB-USER");
-		password = ins.getConfig().getString("DB-PASS");
-		port = Integer.parseInt(ins.getConfig().getString("DB-PORT"));
-		
-		 try {    
-            openConnection();
-        } catch (ClassNotFoundException e) {
-            throwSQLError();
-            e.printStackTrace();
-        } catch (SQLException e) {
-            throwSQLError();
-            e.printStackTrace();
-        }
+		tablename = "mcserver";
 		try {
 			checkTable();
 		} catch (SQLException e) {
-            throwSQLError();
 			e.printStackTrace();
+			ins.getLogger().info("Error Table");
+
 		}
 	}
-	private void throwSQLError() {
-		ins.getLogger().severe("ERROR: SQL");
-		Bukkit.getPluginManager().disablePlugin(ins);
-	}
+	
+	// EXMPLE USE CASE
+	// doListing (true , PRICE, "workbench", BLOCK ); Gets PRICE using BLOCK
+	// doListing (true , BLOCK, 6969, PRICE ); Gets  BLOCK PRICE
+	
+	// doListing (false, BLOCK, 324, PRICE); Posts a block with the price of 324
+	public static ResultSet getListing( Listing what, String option, Listing where)throws SQLException{
+		connection = MySQL.getConnection();
+        String yourquery ="SELECT * FROM "+ tablename +" WHERE " + where.toString() + " = ?;";
+        PreparedStatement stmnt = connection.prepareStatement(yourquery);	
+        stmnt.setString(1, option);
+        return stmnt.executeQuery();
 
-	private void openConnection() throws SQLException, ClassNotFoundException {
-	    if (connection != null && !connection.isClosed()) {
-	        return;
-	    }
-	 
-	    synchronized (this) {
-	        if (connection != null && !connection.isClosed()) {
-	            return;
-	        }
-	        Class.forName("com.mysql.jdbc.Driver");
-	        connection = DriverManager.getConnection("jdbc:mysql://" + this.host+ ":" + this.port + "/" + this.database, this.username, this.password);
-	    }
 	}
 	
+	public static void updateListing(Listing what, String option, String block)throws SQLException {
+		connection = MySQL.getConnection();
+        String yourquery ="UPDATE " + tablename + " SET " + what.toString() + " = ? WHERE "+ Listing.BLOCK +" = ?;";
+        PreparedStatement stmnt = connection.prepareStatement(yourquery);
+        stmnt.setString(1, option);
+        stmnt.setString(2, block);
+        stmnt.executeUpdate();
+
+	}	
+	
+	public static void addListing(Listing what, String option)throws SQLException {
+			connection = MySQL.getConnection();
+	        String yourquery ="INSERT INTO "+ tablename + " ("+ what.toString() +") VALUES (?);";
+	        PreparedStatement stmnt = connection.prepareStatement(yourquery);
+	        stmnt.setString(1, option);
+	        stmnt.executeUpdate();
+
+	}
+    		
+
 	private void checkTable() throws SQLException {
+		connection= MySQL.getConnection();
+
         Statement statement = connection.createStatement(); 
-		boolean result = statement.execute("SHOW TABLES LIKE ?;");
-		
-		if(!result) {
-			 statement.executeUpdate("CREATE TABLE " + tablename + " (blocks TINYTEXT, price INT, sold BIGINT);");
+		ResultSet result = statement.executeQuery("SHOW TABLES LIKE \"" + tablename +"\";");
+		if(!result.next() ) {
+			 statement.execute("	");
+			 ins.getLogger().info("CREATING TABLE");
 		} 
 		
 		

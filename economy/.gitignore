@@ -1,1 +1,6 @@
-/target/
+target/**
+server/**
+logs/**
+.externalToolBuilders/**
+eula.txt
+server.properties
