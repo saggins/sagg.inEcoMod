@@ -55,7 +55,7 @@ blacklist:
    - SHULKER_SHELL
    - WHITE_SHULKER_BOX
    - YELLOW_SHULKER_BOX
-deafultprice: 100
+deafultprice: 300
 sellmultipier: 1.25
 buymultipier: 0.50
 marketfee: 10
