@@ -51,6 +51,7 @@ public class Table implements CommandExecutor {
 			}
 			
 			itemname = material.get().name();
+			break;
 		default:
 			ItemStack item = player.getInventory().getItemInMainHand();
 			String testitem = item.toString().trim().split("\\{")[1].split(" ")[0];

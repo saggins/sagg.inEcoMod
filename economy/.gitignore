@@ -4,3 +4,4 @@ logs/**
 .externalToolBuilders/**
 eula.txt
 server.properties
+/target/
