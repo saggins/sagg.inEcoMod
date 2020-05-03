@@ -58,4 +58,4 @@ blacklist:
 deafultprice: 300
 sellmultipier: 1.25
 buymultipier: 0.50
-marketfee: 10
+marketfee: 3
