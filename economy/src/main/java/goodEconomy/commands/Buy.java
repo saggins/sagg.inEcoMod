@@ -20,6 +20,7 @@ import com.cryptomorin.xseries.XMaterial;
 import goodEconomy.GoodEconomy;
 import goodEconomy.database.Database;
 import goodEconomy.database.Listing;
+import goodEconomy.database.Transactions;
 import goodEconomy.utilities.PriceLogic;
 import me.vagdedes.mysql.database.SQL;
 import net.milkbowl.vault.economy.Economy;
@@ -102,6 +103,9 @@ public class Buy  implements CommandExecutor {
 							
 							if (economy.getBalance(playername) >= Double.valueOf(finalprice)) {
 								// Market Price
+								String[] items = new String[] {player.getUniqueId().toString(), playername.getName().toString(), itemname, String.valueOf(0),String.valueOf(finalprice)};
+								Database.addTransaction(items);
+								
 								economy.withdrawPlayer(playername, finalprice);
 								Database.updateListing(Listing.PRICE, newprice, itemname);
 								Database.updateListing(Listing.SOLD, newsold, itemname);

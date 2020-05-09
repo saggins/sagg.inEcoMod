@@ -58,8 +58,18 @@ public class Database {
 	        stmnt.executeUpdate();
 
 	}
-    		
-
+    		 
+	public static void addTransaction (String[] items) throws SQLException {
+		connection = MySQL.getConnection();
+        String yourquery ="INSERT INTO gdp (uuid, player, blocks, isprice, ammount) VALUES (?, ?, ?, ?, ?);";
+        PreparedStatement stmnt = connection.prepareStatement(yourquery);
+        int pos = 1;
+        for(String item : items) {
+        	stmnt.setString(pos, item);
+        	pos++;
+        }
+        stmnt.executeUpdate();
+	}
 	private void checkTable() throws SQLException {
 		connection= MySQL.getConnection();
 

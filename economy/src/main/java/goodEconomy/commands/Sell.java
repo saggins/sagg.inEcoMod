@@ -89,6 +89,10 @@ public class Sell  implements CommandExecutor {
 						Database.updateListing(Listing.SOLD, String.valueOf(howmuch), itemname);
 						arg0.sendMessage(ChatColor.GREEN + "Congrats, %item% has been sold!".replace("%item%", itemname));
 						Double finalprice = Double.valueOf(howmuch *  Integer.parseInt(ins.getConfig().getString("deafultprice")));
+						
+						String[] items = new String[] {player.getUniqueId().toString(), playername.getName().toString(), itemname, String.valueOf(true),String.valueOf(finalprice)};
+						Database.addTransaction(items);
+						
 						economy.depositPlayer(playername, finalprice );
 						return true;
 						} else {
@@ -109,6 +113,10 @@ public class Sell  implements CommandExecutor {
 							}
 							Database.updateListing(Listing.PRICE, newprice, itemname);
 							Database.updateListing(Listing.SOLD, newsold, itemname);
+							
+							String[] items = new String[] {player.getUniqueId().toString(), playername.getName().toString(), itemname, String.valueOf(1),String.valueOf(finalprice)};
+							Database.addTransaction(items);
+														
 							economy.depositPlayer(playername, finalprice);
 							arg0.sendMessage(ChatColor.GREEN + "Sucess! You have sold %item%. Your balance is %bal%".replace("%item%", itemname).replace("%bal%", String.valueOf(economy.getBalance(playername))));
 							return true;
