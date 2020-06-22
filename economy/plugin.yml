@@ -2,8 +2,9 @@ name: SaggEco
 main: goodEconomy.GoodEconomy
 version: 1.0
 depend: [Vault]
-depend: [Ultimate_Economy ]
+depend: [Ultimate_Economy]
 depend: [MySQL]
+api-version: 1.15
 commands:
    SaggEco:
       description: TODO Sagg.in Economy Mod. Github.com/saggins/...

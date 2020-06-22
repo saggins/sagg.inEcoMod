@@ -44,7 +44,7 @@ public class Database {
 		connection = MySQL.getConnection();
         String yourquery ="UPDATE " + tablename + " SET " + what.toString() + " = ? WHERE "+ Listing.BLOCK +" = ?;";
         PreparedStatement stmnt = connection.prepareStatement(yourquery);
-        stmnt.setString(1, option);
+        stmnt.setString(1, option);	
         stmnt.setString(2, block);
         stmnt.executeUpdate();
 
@@ -61,7 +61,7 @@ public class Database {
     		 
 	public static void addTransaction (String[] items) throws SQLException {
 		connection = MySQL.getConnection();
-        String yourquery ="INSERT INTO gdp (uuid, player, blocks, isprice, ammount) VALUES (?, ?, ?, ?, ?);";
+        String yourquery ="INSERT INTO gdp (uuid, player, blocks, isprice, ammount, time) VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement stmnt = connection.prepareStatement(yourquery);
         int pos = 1;
         for(String item : items) {
